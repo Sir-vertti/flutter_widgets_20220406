@@ -5,111 +5,71 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  final SizedBox sizedBox = const SizedBox(height: 20.0);
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Mi Contenedor'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                color: Colors.blue,
-                child: const Text(
-                  'HELLO WORLD',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ),
-              sizedBox, // Usar la variable sizedBox
-              const MiNuevoWidget(),
-              sizedBox, // Usar la variable sizedBox
-              const MiOtroWidget(),
-              sizedBox, // Usar la variable sizedBox
-              const OtroWidget(),
-              sizedBox, // Usar la variable sizedBox
-              const Text(
-                '¡Hola soy verti',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.black,
-                ),
-              ),
-              sizedBox, // Usar la variable sizedBox
-              
-              ElevatedButton(
-                onPressed: () {
-                  print('¡Se presionó el botón!');
-                },
-                child: const Text('Presiona aquí'),
-              ),
-            ],
+      title: 'App De Verti',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('App De Verti'),
+        backgroundColor: Colors.blue,
+      ),
+      body: const TextInputWidget(),
+    );
+  }
+}
+
+class TextInputWidget extends StatefulWidget {
+  const TextInputWidget({Key? key}) : super(key: key);
+
+  @override
+  State<TextInputWidget> createState() => _TextInputWidgetState();
+}
+
+class _TextInputWidgetState extends State<TextInputWidget> {
+  final controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget> [
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            prefixIcon: Icon(Icons.message),
+            labelText: 'Type a message',
           ),
         ),
-      ),
-    );
-  }
-}
-
-class MiNuevoWidget extends StatelessWidget {
-  const MiNuevoWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: const Text(
-        '¡Hola desde MiNuevoWidget!',
-        style: TextStyle(
-          fontSize: 18.0,
-          color: Colors.white,
+        TextButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Text(controller.text),
+                );
+              },
+            );
+          },
+          child: const Text('Show message'),
         ),
-      ),
-    );
-  }
-}
-
-class MiOtroWidget extends StatelessWidget {
-  const MiOtroWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.orange,
-      child: const Text(
-        '¡Hola desde MiOtroWidget!',
-        style: TextStyle(
-          fontSize: 18.0,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-}
-
-class OtroWidget extends StatelessWidget {
-  const OtroWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView(
-        children: const <Widget>[
-          ListTile(title: Text('item1')),
-          ListTile(title: Text('item2')),
-          ListTile(title: Text('item3')),
-        ],
-      ),
+      ],
     );
   }
 }
