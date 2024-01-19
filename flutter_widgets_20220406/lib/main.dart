@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       // Set the home page to MyHomePage widget
       home: const MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -84,3 +85,4 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     );
   }
 }
+
